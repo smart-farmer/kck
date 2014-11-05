@@ -1,0 +1,51 @@
+@font-face {
+    font-family:GoogleLifeSavers;
+    src: url(LifeSavers-Regular.ttf);
+}
+
+body{
+	min-width:1024px;
+	width:100%;
+	height:auto;
+	background:#999;
+	margin:auto;
+	padding:auto;
+	font-family:GoogleLifeSavers;
+}
+#naglowek{
+	padding-top:20px;
+	text-align:center;	
+	
+}
+#plansza{
+	width:990px;
+	height:480px;
+	margin-left:10px;
+	background:none;
+	float:left;
+}
+#plansza p{
+	font-weight:bold;
+	color:white;	
+}
+#atrybuty{
+	width:320px;
+	height:500px;
+	margin-right:10px;
+	background:none;
+	float:right;
+	border-radius:10px;
+}
+#atrybuty p{
+	margin-left:30px;
+	font-weight:bold;
+}
+#wierszPolecen{
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	height:40px;
+	background:none;
+	float:left;
+}

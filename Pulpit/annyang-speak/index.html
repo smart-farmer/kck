@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/phaser.js"></script>
+<script src="js/phaser-arcade-physics.js"></script>
+<script src="js/annyang.min.js"></script>
+<script src="speakClient.js"></script>
+<link href="style.css" rel="stylesheet"> 
+<script>
+if (annyang) {
+  var sayThis = function() {
+        speak('nigga nigga nigga  nigga nigga nigga nigga nigga nigga nigga nigga  nigga nigga nigga nigga nigga nigga nigga nigga  nigga nigga nigga nigga nigga nigga nigga nigga  nigga nigga nigga nigga nigga nigga nigga nigga  nigga nigga nigga nigga nigga', { speed: 170,  wordgap: 8 });
+      }
+  // Let's define a command.
+  var commands = {
+    'hello': sayThis,
+    'go left': function(){ kierunek = "lewo";},
+    'go right': function(){ kierunek = "prawo";},
+    'go up': function(){ kierunek = "gora";},
+    'go down': function(){ kierunek = "dol";},
+  };
+
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+  // Turn on debugging for the console
+  annyang.debug();
+  // Start listening.
+  annyang.start();
+}
+
+  var game = new Phaser.Game(990, 480, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update:update});
+
+  function preload(){
+    //  You can fill the preloader with as many assets as your game requires
+  
+    //  Here we are loading an image. The first parameter is the unique
+    //  string by which we'll identify the image later in our code.
+  
+    //  The second parameter is the URL of the image (relative)
+    game.load.image('bg','images/Background1.png');
+    game.load.image('pole1','images/Pole1U.png');
+    game.load.image('pole2','images/Pole1NU.png');
+    game.load.image('pole3','images/Pole3U.png');
+    game.load.image('pustepole','images/Pole1NU.png');
+    game.load.spritesheet('mummy', 'images/mummy1.png', 37, 45, 18);
+    game.load.spritesheet('mummy2', 'images/mummy2.png', 37, 45, 18);
+  }
+  var mummy;
+  function create(){
+     //  This creates a simple sprite that is using our loaded image and
+       //  displays it on-screen
+    var image = game.add.sprite(0, 0, 'bg');
+    var image = game.add.sprite(0, 0, 'pole1');
+    var image = game.add.sprite(262, 0, 'pole2');
+    var image = game.add.sprite(524, 0, 'pole3');
+    game.physics.enable(image, Phaser.Physics.ARCADE);
+    mummy = game.add.sprite(400, 215, 'mummy');
+    
+    //  Here we add a new animation called 'walk'
+    //  Because we didn't give any other parameters it's going to make an animation from all available frames in the 'mummy' sprite sheet
+    anim = mummy.animations.add('walk');
+  
+    //  And this starts the animation playing by using its key ("walk")
+    //  30 is the frame rate (30fps)
+    //  true means it will loop when it finishes
+    anim.play(30, true);
+  }
+  var ilepol=50;
+  function update() {
+    if (kierunek == "stop")
+    {
+      mummy.x = mummy.x;  
+      anim.play(0,true);
+    }
+    else
+    {
+      if(kierunek == "lewo")
+      {
+        if(ilepol==0)
+        {         
+          kierunek="stop";
+          ilepol=50;
+        }
+        else
+        {
+          if(ilepol==50)
+          {
+            LoadLeftTexture();
+            anim.play(30,true); 
+          }
+          if(mummy.x == 0)
+            mummy.x=0;
+          else
+            mummy.x-=1;
+          ilepol--;
+        }
+      }
+    if(kierunek == "prawo")
+      {
+        if(ilepol==0)
+        {         
+          kierunek="stop";
+          ilepol=50;
+        }
+        else
+        {
+          if(ilepol==50)
+          {
+            LoadRightTexture();
+            anim.play(30,true); 
+          }
+          if(mummy.x == 0)
+            mummy.x=0;
+          else
+            mummy.x+=1;
+          ilepol--;
+        }
+      }
+    }
+    if(kierunek == "gora")
+      {
+        if(ilepol==0)
+        {         
+          kierunek="stop";
+          ilepol=50;
+        }
+        else
+        {
+          if(ilepol==50)
+          {
+            anim.play(30,true); 
+          }
+          if(mummy.y == 0)
+            mummy.y=0;
+          else
+            mummy.y-=1;
+          ilepol--;
+        }
+      }
+      if(kierunek == "dol")
+      {
+        if(ilepol==0)
+        {         
+          kierunek="stop";
+          ilepol=50;
+        }
+        else
+        {
+          if(ilepol==50)
+          {
+            anim.play(30,true); 
+          }
+          if(mummy.y == 480)
+            mummy.y= 480;
+          else
+            mummy.y+=1;
+          ilepol--;
+        }
+      }
+    }
+  function LoadLeftTexture() {
+
+        mummy.loadTexture('mummy2');
+    mummy.animations.play('walk',30, true);
+  }
+  function LoadRightTexture() {
+      mummy.loadTexture('mummy');
+    mummy.animations.play('walk',30, true);
+  }
+    //----------------------------------------------------------------------------------------------Command()
+  function command()
+  {
+    var paragraph = document.getElementById("wierszLiniiPolecen").value;
+  }
+  var starykierunek = "stop";
+  var kierunek = 'stop';
+
+</script>
+</head>
+<body>
+<h1 id="naglowek">Sm@rt F@rmer</h1>
+            <div id="plansza">
+              <div id="phaser-example">
+        </div>
+            </div>
+            <div id="atrybuty">
+              <h2>Actions:</h2>
+                <p>Zbierz</p>
+                <p>Zasady</p>
+                <p>Idz (do gory)</p>
+            </div>
+ <div id="wierszPolecen">
+          <form action="" method="post" style="padding-left:250px;">
+                 <b>Polecenie:</b> <input type="text" style="width:600px; border-radius:5px;" id="wierszLiniiPolecen"/>
+            </form>
+            <button onClick="goUP()">Wykonaj</button>
+        </div>
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+<button onclick="speak('hello world')">Talk</button>
+    <div id="audio"></div>
+
+</body>
+</html>
